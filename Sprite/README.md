@@ -16,13 +16,15 @@ size: 16:9
 
 ---
 
+## 前端应用 Application
+
 这个概念影响之后许多游戏引擎和整个前端行业，例如使用`JavaScript`的游戏引擎：Egret中的`SpriteSheet`、Cocos Creator中的`Sprite Frame`。前端开发中常见的`CSS Image Sprites`，使用`background-position`从一张精灵图上渲染不同的icon，还可以配合`keyframes`制作动画。
 
 在前端性能优化的时候，其中图片优化最有效也是频率最高的就是CSS精灵图，把多张图片融合成一张图片，然后通过css `background-position`取指定位置的图片，减少了http请求次数自然减少了加载时间。
 
 ---
 
-## 简单动画 Animation Demo
+### 简单动画 Animation Demo
 
 下面来简单的看一下如何使用精灵图配合`keyframes`制作简单的动画
 
@@ -59,7 +61,6 @@ size: 16:9
 ```
 ---
 
-## 前端应用 Application
 
 
 在前端开发还处于刀耕火种的年代，拼合一张精灵图是通过PhotoShop，将一堆图标放到一张图里，这样使用精灵图虽然优化了性能，但是苦了开发，当几百张小图合并在一张图之后，想要修改其中的一张，就要让UI重新出图，不改图片尺寸还好，改了尺寸修改`position`的工作量非常大。
@@ -306,48 +307,23 @@ if (root.width > root.height) {
 
 ---
 
-安装  `npm i worker-loader -D`
-
-配置 webpack
-
-```js
-module: {
-    // 在js和ts的rule之前配置woker-loader
-    rules: [
-        {
-            test: /\.worker\.ts$/,
-            use: {
-                loader: 'worker-loader',
-                options: {
-                    filename: '[name].js',
-                }
-            }
-        },
-    ],
-}
-
-output: {
-    // 防止出现window is undefined错误
-    globalObject: 'this'
-}
-```
----
-
-#### 通信
+#### 通信 Communication
   
   主线程
 
 ```ts
 import MaxSideSortWorker from './Wokers/maxSideSort.worker';
 
-const maxSideSortWorker = new MaxSideSortWorker();
+const maxSideSortWorker = new Worker(
+    new URL('./workers/maxSideSort.worker', import.meta.url)
+);
 
 maxSideSortWorker.onmessage = (event: MessageEvent) => {
-    if (maxSideSortDefer) {
-        maxSideSortDefer.resolve({ key: 'Max Side', data: event.data });
-    } 
+    // 从子线程接受消息 event.data
+    // 处理完数据后终止子线程
     maxSideSortWorker.terminate();
 };
+
 ```
 ---
 
@@ -355,7 +331,7 @@ maxSideSortWorker.onmessage = (event: MessageEvent) => {
     
 ```ts
 // 创建主线程this指针
-const webWorker: Worker = self as any; 
+const webWorker = self as any as Worker; 
 
 webWorker.onmessage = (event: MessageEvent) => { 
     const items = event.data as Item[];
@@ -365,14 +341,11 @@ webWorker.onmessage = (event: MessageEvent) => {
     webWorker.postMessage(root);
     self.close();
 };
-
-// 防止出现 xx.worker.ts is not a module 类似错误
-export default null as any; 
 ```
 
 ---
 
-#### 异步处理 
+#### 异步处理 Asynchronous processing
 
 由于每个worker独立负责自己的运算，并且通过事件通知的方式发送运算结果给主线程，所以这里需要处理异步结果，为每个worker创建一个`defer`，然后通过`Promise.all`等待全部线程结束，就可以拿到结果。
 
@@ -395,16 +368,16 @@ const sortResults = await Promise.all(allDefer);
 
 ---
 
-## 源码
+## [在线Demo预览](https://shiverzheng.github.io/texture-merger-test/dist/index.html)
 
-[https://github.com/ShiverZheng/texture-merger/tree/webWorker](https://github.com/ShiverZheng/texture-merger/tree/webWorker)
+## 源码 Source code
 
-[Demo](https://shiverzheng.github.io/texture-merger/dist/index.html)
+[https://github.com/ShiverZheng/texture-merger](https://github.com/ShiverZheng/texture-merger)
 
-## 工具
+[幻灯片](https://github.com/ShiverZheng/Share/blob/master/Sprite/README.md) [Demo源码](https://github.com/ShiverZheng/texture-merger-test)
 
+## 工具 Tools
 幻灯片
-
 [marp](https://marp.app/)
 > Create beautiful slide decks using an intuitive Markdown experience.
 
