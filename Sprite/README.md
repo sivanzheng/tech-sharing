@@ -12,7 +12,7 @@ size: 16:9
 
 常见碳酸饮料雪碧的英文名也是 `Sprite`，因此也有人会使用雪碧图的非正式译名。
 
-精灵图起源于街机游戏，当时的意思是独立于背景的独立移动的二维图被称为 Sprite，那时候的游戏还没有 GPU 来渲染，而是通过电路，显像管等硬件在显示器逐行扫描实现的，所以这些跟背景分离的图像就跟浮起来一样，所以叫精灵（Sprite）。
+精灵图起源于街机游戏，首次作为图形术语出现，是在德州仪器的9918(A)视频显示处理器上。当时的意思是独立于背景的独立移动的二维图被称为 `Sprite`。
 
 ---
 
@@ -63,7 +63,7 @@ size: 16:9
 
 
 
-在前端开发还处于刀耕火种的年代，拼合一张精灵图是通过PhotoShop，将一堆图标放到一张图里，这样使用精灵图虽然优化了性能，但是苦了开发，当几百张小图合并在一张图之后，想要修改其中的一张，就要让UI重新出图，不改图片尺寸还好，改了尺寸修改`position`的工作量非常大。
+在前端开发还处于刀耕火种的年代，拼合一张精灵图是通过PhotoShop，将一堆图标放到一张图里，这样使用精灵图虽然优化了性能，但是当几百张小图合并在一张图之后，想要修改其中的一张，就要让UI重新出图，不改图片尺寸还好，改了尺寸修改`position`的工作量非常大。
 
 进入到现在前端开发更加工程化、自动化的时代，就有了很多解放生产力的工具，比如我们可以通过[webpack-spritesmith](https://github.com/mixtur/webpack-spritesmith)，配合webpack就可以将一堆零散的图片打包到一张图片当中，并且还可以自动生成相关的css数据。
 
@@ -383,4 +383,4 @@ const sortResults = await Promise.all(allDefer);
 
 绘图
 [diagrams](https://app.diagrams.net/?src=about)
-> Free online drawing tool, you can save data to github.
+> Complex diagramming on an online whiteboard.
