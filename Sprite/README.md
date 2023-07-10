@@ -368,13 +368,13 @@ const sortResults = await Promise.all(allDefer);
 
 ---
 
-## [在线Demo预览](https://shiverzheng.github.io/texture-merger-test/dist/index.html)
+## [在线Demo预览](https://sivanzheng.github.io/texture-merger-test/dist/index.html)
 
 ## 源码 Source code
 
-[https://github.com/ShiverZheng/texture-merger](https://github.com/ShiverZheng/texture-merger)
+[https://github.com/sivanzheng/texture-merger](https://github.com/sivanzheng/texture-merger)
 
-[幻灯片](https://github.com/ShiverZheng/Share/blob/master/Sprite/README.md) [Demo源码](https://github.com/ShiverZheng/texture-merger-test)
+[幻灯片](https://github.com/sivanzheng/Share/blob/master/Sprite/README.md) [Demo源码](https://github.com/sivanzheng/texture-merger-test)
 
 ## 工具 Tools
 幻灯片
